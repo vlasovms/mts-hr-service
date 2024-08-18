@@ -1,0 +1,34 @@
+spring.application.name: HRService
+server:
+  port: 8183
+spring:
+  kafka:
+    bootstrap-servers: localhost:9094
+    consumer:
+      group-id: "consumer-3"
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: ru.mts.homework.serializer.ApplicationDeserializer
+      properties:
+        spring:
+          json:
+            trusted:
+              packages: '*'
+    producer:
+      auto-offset-reset: earliest
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: ru.mts.homework.serializer.ApplicationSerializer
+      properties:
+        spring:
+          json:
+            trusted:
+              packages: '*'
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driverClassName: org.h2.Driver
+    username: admin
+    password: admin
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+
+api.url: "http://localhost:8080/vacation/getAll"
